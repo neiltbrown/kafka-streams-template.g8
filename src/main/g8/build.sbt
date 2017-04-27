@@ -12,7 +12,7 @@ scalacOptions += "-Xexperimental"
 libraryDependencies ++= deps
 
 resolvers ++= Seq(
-  "Cloudera Repository" at "https://repository.cloudera.com/artifactory/cloudera-repos/",
+  "Confluent" at "http://packages.confluent.io/maven/",
   "Artima Maven Repository" at "http://repo.artima.com/releases"
 )
 
