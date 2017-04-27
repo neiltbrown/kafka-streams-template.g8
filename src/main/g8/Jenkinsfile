@@ -1,0 +1,28 @@
+#!groovy
+
+node("docker") {
+
+    def sbtHome = tool 'default-sbt'
+    def SBT = "\${sbtHome}/bin/sbt -Dsbt.log.noformat=true"
+
+    def branch = env.BRANCH_NAME
+
+    echo "current branch is \${branch}"
+
+    // Mandatory, to maintain branch integrity
+    checkout scm
+
+    stage('Cleanup') {
+        deleteDir()
+        sh "\${SBT} clean"
+    }
+
+    stage('Build') {
+        sh "\${SBT} package"
+    }
+
+    stage('Publish') {
+        sh "\${SBT} release with-defaults skip-tests"
+    }
+
+}
